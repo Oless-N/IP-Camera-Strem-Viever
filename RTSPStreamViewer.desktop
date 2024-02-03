@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Encoding=UTF-8
+Name=RTSP Stream Viewer
+Comment=Cameras orchestrator of the stream and record
+Exec=python3 /home/one/RTSPStreamViewer/ip_cameras_viewer.py
+Icon=/home/one/RTSPStreamViewer/icon.png
+Terminal=false
+Categories=Development;
