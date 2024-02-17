@@ -8,6 +8,8 @@ from PySide6 import QtCore, QtGui, QtWidgets
 from PySide6.QtCore import QTimer
 from PySide6.QtGui import QIcon, QPixmap
 
+from config_ui import CameraAddDialog
+
 
 def load_camera_settings(filename):
     try:
@@ -64,6 +66,9 @@ class MainWindow(QtWidgets.QMainWindow):
         self.update_timer = QTimer()
         self.update_timer.timeout.connect(self.update_image)
         self.update_timer.start(30)  # Update at ~33 fps
+        self.add_camera_button = QtWidgets.QPushButton("Settings")
+        layout.addWidget(self.add_camera_button)
+        self.add_camera_button.clicked.connect(self.add_camera)
 
     def setup_camera_selection(self):
         self.camera_selector.addItem("Default Camera", 0)
@@ -175,6 +180,12 @@ class MainWindow(QtWidgets.QMainWindow):
             self.writer.release()
         self.executor.shutdown(wait=False)
         super().closeEvent(event)
+
+    def add_camera(self):
+        dialog = CameraAddDialog(self)
+        if dialog.exec():
+            camera_info = dialog.get_camera_info()
+            print("Camera info:", camera_info)
 
 
 if __name__ == "__main__":
